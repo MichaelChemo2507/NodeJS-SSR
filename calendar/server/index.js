@@ -1,9 +1,11 @@
-// npm i express body-parser mysql2 ejs
+// npm i express body-parser mysql2 ejs dotenv slashes@2.0.0
 const port = 7777;
+const dotenv = require("dotenv");
 const express = require('express');
 const app = express();
 app.use(express.json());
 
+dotenv.config();
 const bodyParser = require('body-parser');
 const path = require('path');
 app.use(bodyParser.urlencoded({ extended: false }));
