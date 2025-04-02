@@ -69,7 +69,7 @@ class CoursesService {
                 if (typeof val == "")
                     val = SqlInjection.addSlashes(val);
             }
-            let rows = await CoursesModel.updateCoursById(values);
+            let rows = await CoursesModel.updateCours(values);
             if (rows === undefined) throw new Error("No rows received from the DB!");
             return rows.affectedRows;
         } catch (err) {

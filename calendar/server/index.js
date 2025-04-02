@@ -15,6 +15,9 @@ console.log('"fs"ff');
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, './views'));
 
+const coursesRouts = require("./routs/courses.rout");
+app.use("/courses", coursesRouts);
+
 app.get('/', (req, res) => {
   res.render('index', {});
 });

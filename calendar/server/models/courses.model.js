@@ -50,7 +50,7 @@ class Courses {
         }
     }
     static async addMultipleCourses(values) { }
-    static async updateCoursById(values) {
+    static async updateCours(values) {
         try {
             if (!values) throw new Error("no values received!");
             if (!Array.isArray(values)) values = [values];
