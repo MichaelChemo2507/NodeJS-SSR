@@ -1,12 +1,15 @@
 const CoursesService = require("../services/courses.service");
 
 class CoursController {
+  static async getAddCoursesPage(req, res) {
+    res.render("add_courses", {});
+  }
   static async getAll(req, res) {
     try {
       const courses = await CoursesService.getAll();
       if (courses.length > 0) res.json({ success: true, rows: courses });
       else
-        res.status(404).json({ success: false, message: "courses not found" });
+        res.status(500).json({ success: false, message: "courses not found" });
     } catch (error) {
       console.error("Error in courses controller level (getAll):", error);
       res
