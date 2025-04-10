@@ -6,12 +6,12 @@ const PASSWORD = process.env.PASSWORD;
 const DATABASE = process.env.DATABASE;
 
 const pool = mysql.createPool({
-    host: HOST,
-    user: USER,
-    password: PASSWORD,
-    database: DATABASE
+  host: HOST,
+  user: USER,
+  password: PASSWORD,
+  database: DATABASE,
 });
 
 module.exports = {
-    pool: pool
+  pool: pool,
 };
