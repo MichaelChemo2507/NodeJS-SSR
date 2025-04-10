@@ -1,13 +1,13 @@
-<% let titleName = "Courses-list"; %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%page_title%></title>
+    <title><%=page_title%></title>
 </head>
 <body>
-    <h1><%page_title%></h1>
+    <h1><%=page_title%></h1>
     <table>
         <tr>
             <%for( let i = 0;i < Object.keys(result[0]).length; i++){%>
@@ -17,7 +17,7 @@
         <% for(let i = 0; i < result.length; i++){%>
             <tr>
                 <%for(let k = 0; k < Object.values(result[i]).length; k++){%>
-                    <td><%Object.values(result[i])[k]%></td>
+                    <td><%=Object.values(result[i])[k]%></td>
                 <%}%>
             </tr>
         <%}%>
