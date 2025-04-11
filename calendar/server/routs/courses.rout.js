@@ -12,7 +12,7 @@ router.get('/', tryCatch(CoursController.getAll));
 router.get('/:id', tryCatch(CoursController.findCourseById));
 router.post('/', tryCatch(CoursController.addCourse));
 router.delete('/:id', tryCatch(CoursController.deleteCourse));
-router.put('/:id', CoursController.updateCourse);
+router.put('/:id', tryCatch(CoursController.updateCourse));
 
 router.use(errorHandler);
 

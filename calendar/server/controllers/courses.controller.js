@@ -60,28 +60,14 @@ class CoursController {
     return res.status(204).send({ success: true, message: `rows by id ${id} are deleted` });
   }
   static async updateCourse(req, res) {
-    try {
-      let { id } = req.params;
-      let { name } = req.body;
-      if (name == undefined)
-        throw new Error(
-          'Invalid values received! || Missing values! Values : ' + name
-        );
-      const affectedRows = await CoursesService.updateCourse([String(name), id]);
-      if (affectedRows < 1)
-        res
-          .status(404)
-          .json({ success: false, message: `id ${id} is not exist` });
-      else
-        res
-          .status(204)
-          .json({ success: true, message: `row ${id} is updated` });
-    } catch (error) {
-      console.error('Error in Updating cours By Id:', error.message);
-      res
-        .status(500)
-        .json({ success: false, message: 'Internal server error' });
-    }
+    let id = parseInt(req.params.id);
+    let { name } = req.body;
+    if (!name || name === "" || !id)
+      throw new DetailedError("Invalid values were sent.", BED_REQUEST);
+    const affectedRows = await CoursesService.updateCourse([String(name), id]);
+    if (affectedRows === 0)
+      throw new DetailedError("No rows updated.", NOT_FOUND);
+    res.status(204).send();
   }
 }
 module.exports = CoursController;
