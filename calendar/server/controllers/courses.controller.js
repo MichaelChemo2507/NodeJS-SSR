@@ -33,30 +33,23 @@ class CoursController {
     let id = parseInt(req.params.id);
     console.log(id);
     if (!id)
-      throw new DetailedError("Invalid values ​​were sent.", BED_REQUEST);
+      throw new DetailedError("Invalid values were sent.", BED_REQUEST);
     const cours = await CoursesService.findCoursById(id);
     console.log(cours);
     if (cours.length == 0)
-      throw new DetailedError("No result from db", NOT_FOUND);
+      throw new DetailedError("No result from db.", NOT_FOUND);
     if (!cours)
       throw new RangeError('No resulte from db!');
     return res.status(200).json({ success: true, rows: cours });
   }
   static async addCours(req, res) {
-    try {
-      let { name } = req.body;
-      if (name == undefined)
-        throw new Error(
-          'Invalid values received! || Missing values! Values : ' + name
-        );
-      const insertId = await CoursesService.addCours([String(name)]);
-      res.status(201).json({ success: true, insertId: insertId });
-    } catch (error) {
-      console.error('Error in courses controller level (addPlant):', error);
-      res
-        .status(500)
-        .json({ success: false, message: 'Internal server error' });
-    }
+    let { name } = req.body;
+    if (!name || name === "")
+      throw new DetailedError("Invalid values were sent.", BED_REQUEST);
+    const insertId = await CoursesService.addCours([String(name)]);
+    if (insertId === 0)
+      throw new DetailedError("No row was created.", NOT_FOUND);
+    return res.status(201).json({ success: true, insertId: insertId });
   }
   static async deleteCours(req, res) {
     try {

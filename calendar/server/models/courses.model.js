@@ -2,34 +2,25 @@ const connection = require('../configuration/db');
 
 class Courses {
   static async getAll() {
-      const sql = 'SELECT * FROM `courses`';
-      const [rows, fields] = await connection.pool.query({
-        sql,
-      });
-      return rows;
+    const sql = 'SELECT * FROM `courses`';
+    const [rows, fields] = await connection.pool.query({
+      sql,
+    });
+    return rows;
   }
   static async findCoursById(values) {
-      const sql = 'SELECT * FROM `courses` WHERE `id` = ?';
-      const [rows, fields] = await connection.pool.execute(sql, [values]);
-      return rows;
+    values = (!Array.isArray(values)) ? [values] : values;
+    const sql = 'SELECT * FROM `courses` WHERE `id` = ?';
+    const [rows, fields] = await connection.pool.execute(sql, values);
+    return rows;
   }
   static async addCours(values) {
-    try {
-      if (!values) throw new Error('no values received!');
-      if (!Array.isArray(values)) values = [values];
-      if (values.length > 1 || values.length < 1)
-        throw new RangeError('Error in the number of values received!');
-      if (typeof values[0] != typeof '')
-        throw new TypeError(`invalid name type! - receive type ${values[0]}}`);
-      const sql = 'INSERT INTO `courses`(`name`) VALUES (?)';
-      const [rows, fields] = await connection.pool.execute(sql, values);
-      return rows;
-    } catch (err) {
-      console.error('Error in addCours model! - ', err.message);
-      throw err;
-    }
+    values = (!Array.isArray(values)) ? [values] : values;
+    const sql = 'INSERT INTO `courses`(`name`) VALUES (?)';
+    const [rows, fields] = await connection.pool.execute(sql, values);
+    return rows;
   }
-  static async addMultipleCourses(values) {}
+  static async addMultipleCourses(values) { }
   static async updateCours(values) {
     try {
       if (!values) throw new Error('no values received!');

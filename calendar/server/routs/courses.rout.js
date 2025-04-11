@@ -10,7 +10,7 @@ router.get('listPage', CoursController.getCoursesListPage);
 
 router.get('/', tryCatch(CoursController.getAll));
 router.get('/:id', tryCatch(CoursController.findCoursById));
-router.post('/', CoursController.addCours);
+router.post('/', tryCatch(CoursController.addCours));
 router.delete('/:id', CoursController.deleteCours);
 router.put('/:id', CoursController.updateCours);
 

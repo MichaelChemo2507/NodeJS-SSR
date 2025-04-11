@@ -20,44 +20,39 @@ class CoursesService {
     return rows;
   }
   static async addCours(values) {
-    try {
-      for (let val of values) {
-        if (typeof val == '') val = SqlInjection.addSlashes(val);
-      }
-      let rows = await CoursesModel.addCours(values);
-      if (rows == undefined) throw new Error('No rows received from the DB!');
-      return rows.affectedRows;
-    } catch (err) {
-      console.error(`Error in service addCours: ${err.message}`);
-      throw new Error('Failed to add cours due to an internal error.');
+    values = (!Array.isArray(values)) ? [values] : values;
+    for (let val of values) {
+      if (typeof val == '') val = SqlInjection.addSlashes(val);
     }
-  }
+    let rows = await CoursesModel.addCours(values);
+    return rows.affectedRows;
+}
   static async deleteCours(values) {
-    try {
-      for (let val of values) {
-        if (typeof val == '') val = SqlInjection.addSlashes(val);
-      }
-      let rows = await CoursesModel.deleteCours(values);
-      if (rows == undefined) throw new Error('No rows received from the DB!');
-      return rows.affectedRows;
-    } catch (err) {
-      console.error(`Error in service deleteCours: ${err.message}`);
-      throw new Error('Failed to delete cours due to an internal error.');
+  try {
+    for (let val of values) {
+      if (typeof val == '') val = SqlInjection.addSlashes(val);
     }
+    let rows = await CoursesModel.deleteCours(values);
+    if (rows == undefined) throw new Error('No rows received from the DB!');
+    return rows.affectedRows;
+  } catch (err) {
+    console.error(`Error in service deleteCours: ${err.message}`);
+    throw new Error('Failed to delete cours due to an internal error.');
   }
+}
   static async updateCours(values) {
-    try {
-      for (let val of values) {
-        if (typeof val == '') val = SqlInjection.addSlashes(val);
-      }
-      let rows = await CoursesModel.updateCours(values);
-      if (rows === undefined) throw new Error('No rows received from the DB!');
-      return rows.affectedRows;
-    } catch (err) {
-      console.error(`Error in service updateCoursById: ${err.message}`);
-      throw new Error('Failed to update cours due to an internal error.');
+  try {
+    for (let val of values) {
+      if (typeof val == '') val = SqlInjection.addSlashes(val);
     }
+    let rows = await CoursesModel.updateCours(values);
+    if (rows === undefined) throw new Error('No rows received from the DB!');
+    return rows.affectedRows;
+  } catch (err) {
+    console.error(`Error in service updateCoursById: ${err.message}`);
+    throw new Error('Failed to update cours due to an internal error.');
   }
+}
 }
 
 module.exports = CoursesService;
