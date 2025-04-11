@@ -8,20 +8,20 @@ class Courses {
     });
     return rows;
   }
-  static async findCoursById(values) {
+  static async findCourseById(values) {
     values = (!Array.isArray(values)) ? [values] : values;
     const sql = 'SELECT * FROM `courses` WHERE `id` = ?';
     const [rows, fields] = await connection.pool.execute(sql, values);
     return rows;
   }
-  static async addCours(values) {
+  static async addCourse(values) {
     values = (!Array.isArray(values)) ? [values] : values;
     const sql = 'INSERT INTO `courses`(`name`) VALUES (?)';
     const [rows, fields] = await connection.pool.execute(sql, values);
     return rows;
   }
   static async addMultipleCourses(values) { }
-  static async updateCours(values) {
+  static async updateCourse(values) {
     try {
       if (!values) throw new Error('no values received!');
       if (!Array.isArray(values)) values = [values];
@@ -40,18 +40,11 @@ class Courses {
       throw err;
     }
   }
-  static async deleteCours(values) {
-    try {
-      if (!values) throw new Error('no values received!');
-      if (!Array.isArray(values)) values = [values];
-      const sql = 'DELETE FROM `cours` WHERE `id` = ?';
+  static async deleteCourse(values) {
+      values = (!Array.isArray(values)) ? [values] : values;
+      const sql = 'DELETE FROM `courses` WHERE `id` = ?';
       const [rows, fields] = await connection.pool.execute(sql, values);
-
-      return rows;
-    } catch (err) {
-      console.error('Error in deleteCours level! - ', err.message);
-      throw err;
-    }
+      return rows
   }
 }
 module.exports = Courses;

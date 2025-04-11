@@ -9,10 +9,10 @@ router.get('/addPage', CoursController.getAddCoursesPage);
 router.get('listPage', CoursController.getCoursesListPage);
 
 router.get('/', tryCatch(CoursController.getAll));
-router.get('/:id', tryCatch(CoursController.findCoursById));
-router.post('/', tryCatch(CoursController.addCours));
-router.delete('/:id', CoursController.deleteCours);
-router.put('/:id', CoursController.updateCours);
+router.get('/:id', tryCatch(CoursController.findCourseById));
+router.post('/', tryCatch(CoursController.addCourse));
+router.delete('/:id', tryCatch(CoursController.deleteCourse));
+router.put('/:id', CoursController.updateCourse);
 
 router.use(errorHandler);
 
