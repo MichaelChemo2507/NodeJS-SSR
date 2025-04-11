@@ -1,4 +1,6 @@
 const CoursesService = require('../services/courses.service');
+const DetailedError = require('../errors/detailedError.errors');
+const { BED_REQUEST, NOT_FOUND } = require('../errors/errorCodes');
 
 class CoursController {
   static getAddCoursesPage(req, res) {
@@ -20,25 +22,25 @@ class CoursController {
   }
   static async getAll(req, res) {
     const courses = await CoursesService.getAll();
-    if (!courses || courses.length == 0)
+    console.log(courses);
+    if (courses.length == 0)
+      throw new DetailedError("No result from db", NOT_FOUND);
+    if (!courses)
       throw new RangeError('No resulte from db!');
     return res.status(200).json({ success: true, rows: courses });
   }
   static async findCoursById(req, res) {
-    try {
-      let { id } = req.params;
-      const cours = await CoursesService.findCoursById(id);
-      if (cours.length > 0) res.json({ success: true, rows: cours });
-      else res.status(404).json({ success: false, message: 'cours not found' });
-    } catch (error) {
-      console.error(
-        'Error in courses controller level (findCoursById):',
-        error
-      );
-      res
-        .status(500)
-        .json({ success: false, message: 'Internal server error' });
-    }
+    let id = parseInt(req.params.id);
+    console.log(id);
+    if (!id)
+      throw new DetailedError("Invalid values ​​were sent.", BED_REQUEST);
+    const cours = await CoursesService.findCoursById(id);
+    console.log(cours);
+    if (cours.length == 0)
+      throw new DetailedError("No result from db", NOT_FOUND);
+    if (!cours)
+      throw new RangeError('No resulte from db!');
+    return res.status(200).json({ success: true, rows: cours });
   }
   static async addCours(req, res) {
     try {

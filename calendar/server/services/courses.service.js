@@ -2,33 +2,22 @@ const CoursesModel = require('../models/courses.model');
 const SqlInjection = require('../utils/security.utile');
 class CoursesService {
   static async getAll() {
-    try {
-      let rows = await CoursesModel.getAll();
-      rows.forEach(obj => {
-        for (let val of obj) {
-          if (typeof val == '') val = SqlInjection.stripSlashes(val);
-        }
-      });
-      return rows;
-    } catch (err) {
-      throw err;
-    }
+    let rows = await CoursesModel.getAll();
+    rows.forEach(obj => {
+      Object.values(obj).forEach(val => {
+        if (typeof val == '') val = SqlInjection.stripSlashes(val);
+      })
+    });
+    return rows;
   }
   static async findCoursById(values) {
-    try {
-      for (let val of values) {
-        if (typeof val == '') val = SqlInjection.addSlashes(val);
-      }
-      let rows = await CoursesModel.findCoursById(values);
-      if (rows == undefined) throw new Error('No rows received from the DB!');
-      for (let val of rows[0]) {
+    let rows = await CoursesModel.findCoursById(values);
+    rows.forEach(obj => {
+      Object.values(obj).forEach(val => {
         if (typeof val == '') val = SqlInjection.stripSlashes(val);
-      }
-      return rows;
-    } catch (err) {
-      console.error(`Error in service findCoursById: ${err.message}`);
-      throw new Error('Failed to find cours by id due to an internal error.');
-    }
+      })
+    });
+    return rows;
   }
   static async addCours(values) {
     try {

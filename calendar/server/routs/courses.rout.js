@@ -9,7 +9,7 @@ router.get('/addPage', CoursController.getAddCoursesPage);
 router.get('listPage', CoursController.getCoursesListPage);
 
 router.get('/', tryCatch(CoursController.getAll));
-router.get('/:id', CoursController.findCoursById);
+router.get('/:id', tryCatch(CoursController.findCoursById));
 router.post('/', CoursController.addCours);
 router.delete('/:id', CoursController.deleteCours);
 router.put('/:id', CoursController.updateCours);

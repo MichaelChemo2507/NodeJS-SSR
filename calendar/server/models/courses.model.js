@@ -2,31 +2,16 @@ const connection = require('../configuration/db');
 
 class Courses {
   static async getAll() {
-    try {
       const sql = 'SELECT * FROM `courses`';
       const [rows, fields] = await connection.pool.query({
         sql,
       });
       return rows;
-    } catch (err) {
-      throw err;
-    }
   }
   static async findCoursById(values) {
-    try {
-      if (!values) throw new Error('no values received!');
-      if (!Array.isArray(values)) values = [values];
-      if (values.length > 1 || values.length < 1)
-        throw new RangeError('Error in the number of values received!');
-      if (typeof values[0] != typeof '')
-        throw new TypeError(`invalid name type! - receive type ${values[0]}}`);
       const sql = 'SELECT * FROM `courses` WHERE `id` = ?';
       const [rows, fields] = await connection.pool.execute(sql, [values]);
       return rows;
-    } catch (err) {
-      console.error('Error in findCoursById model! - ', err.message);
-      throw err;
-    }
   }
   static async addCours(values) {
     try {
