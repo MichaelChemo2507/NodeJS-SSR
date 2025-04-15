@@ -4,14 +4,14 @@ const { BED_REQUEST, NOT_FOUND } = require('../errors/errorCodes');
 
 class CoursController {
   static getAddCoursesPage(req, res) {
-    res.render('add_courses', {});
+    res.status(200).render('add_courses', {});
   }
   static async getCoursesListPage(req, res) {
-      let result = await CoursController.getAll();
-      res.status(200).render('courses_list', {
-        result: result.rows,
-        page_title: 'Courses-List',
-      });
+    let result = await CoursesService.getAll();
+    res.status(200).render('courses_list', {
+      result: result,
+      page_title: 'Courses-List',
+    });
   }
   static async getAll(req, res) {
     const courses = await CoursesService.getAll();
