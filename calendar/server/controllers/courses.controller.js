@@ -7,18 +7,11 @@ class CoursController {
     res.render('add_courses', {});
   }
   static async getCoursesListPage(req, res) {
-    try {
       let result = await CoursController.getAll();
       res.status(200).render('courses_list', {
         result: result.rows,
         page_title: 'Courses-List',
       });
-    } catch (error) {
-      console.error(error);
-      res
-        .status(500)
-        .json({ success: false, message: 'Internal server error' });
-    }
   }
   static async getAll(req, res) {
     const courses = await CoursesService.getAll();

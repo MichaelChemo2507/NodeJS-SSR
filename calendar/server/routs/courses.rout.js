@@ -5,7 +5,7 @@ const { tryCatch } = require('../utils/tryCatch.utils');
 
 const router = express.Router();
 
-router.get('/addPage', CoursController.getAddCoursesPage);
+router.get('/addPage', tryCatch(CoursController.getAddCoursesPage));
 router.get('listPage', CoursController.getCoursesListPage);
 
 router.get('/', tryCatch(CoursController.getAll));
