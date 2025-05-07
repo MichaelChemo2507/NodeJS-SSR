@@ -4,28 +4,24 @@ const { BED_REQUEST, NOT_FOUND } = require('../errors/errorCodes');
 
 class CoursController {
   static getAddCoursesPage(req, res) {
-    res
-      .status(200)
-      .render('add_courses', {
-        data: {
-          btnText: 'ADD',
-          URL: 'http://localhost:7777/courses/',
-          method: 'post',
-        },
-      });
+    res.status(200).render('add_courses', {
+      data: {
+        btnText: 'ADD',
+        URL: 'http://localhost:7777/courses/',
+        method: 'post',
+      },
+    });
   }
   static getUpdateCoursesPage(req, res) {
     let id = parseInt(req.params.id);
-    res
-      .status(200)
-      .render('add_courses', {
-        data: {
-          id: id,
-          btnText: 'UPDATE',
-          URL: `http://localhost:7777/courses/${id}`,
-          method: 'post',
-        },
-      });
+    res.status(200).render('add_courses', {
+      data: {
+        id: id,
+        btnText: 'UPDATE',
+        URL: `http://localhost:7777/courses/${id}`,
+        method: 'post',
+      },
+    });
   }
   static async getCoursesListPage(req, res) {
     let result = await CoursesService.getAll();
@@ -44,7 +40,8 @@ class CoursController {
   }
   static async findCourseById(req, res) {
     let id = parseInt(req.params.id);
-    if (!id) throw new DetailedError('Invalid values were sent.', BED_REQUEST);
+    if ((!id) || (id <= 0) || (id === NaN))
+      throw new DetailedError('Invalid values were sent.', BED_REQUEST);
     const cours = await CoursesService.findCourseById(id);
     console.log(cours);
     if (cours.length == 0)
@@ -54,28 +51,29 @@ class CoursController {
   }
   static async addCourse(req, res) {
     let { name } = req.body;
-    if (!name || name === '')
+    if ((!name) || (name === '') || (name === NaN))
       throw new DetailedError('Invalid values were sent.', BED_REQUEST);
     const insertId = await CoursesService.addCourse([String(name)]);
     if (insertId === 0)
       throw new DetailedError('No row was created.', NOT_FOUND);
-    return res.status(201).redirect('listPage');
+    return res.status(process.env.CREATED).redirect('listPage');
   }
   static async deleteCourse(req, res) {
     let id = parseInt(req.params.id);
-    if (!id) throw new DetailedError('Invalid values were sent.', BED_REQUEST);
+    if ((!id) || (id <= 0) || (id === NaN))
+      throw new DetailedError('Invalid values were sent.', BED_REQUEST);
     const affectedRows = await CoursesService.deleteCourse(id);
     if (affectedRows === 0)
       throw new DetailedError('No rows deleted.', NOT_FOUND);
     return res
-      .status(204)
+      .status(process.env.NO_CONTECT)
       .send({ success: true, message: `rows by id ${id} are deleted` });
   }
   static async updateCourse(req, res) {
     let id = parseInt(req.params.id);
     let { name } = req.body;
     console.log(name);
-    if (!name || name === '' || !id)
+    if ((!name) || (name === '') || (!id) || (id <= 0) || (id === NaN))
       throw new DetailedError('Invalid values were sent.', BED_REQUEST);
     const affectedRows = await CoursesService.updateCourse([String(name), id]);
     if (affectedRows === 0)
