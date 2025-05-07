@@ -6,13 +6,14 @@ const { tryCatch } = require('../utils/tryCatch.utils');
 const router = express.Router();
 
 router.get('/addPage', tryCatch(CoursController.getAddCoursesPage));
+router.get('/updatePage/:id', tryCatch(CoursController.getUpdateCoursesPage));
 router.get('/listPage', CoursController.getCoursesListPage);
 
 router.get('/', tryCatch(CoursController.getAll));
 router.get('/:id', tryCatch(CoursController.findCourseById));
 router.post('/', tryCatch(CoursController.addCourse));
 router.delete('/:id', tryCatch(CoursController.deleteCourse));
-router.put('/:id', tryCatch(CoursController.updateCourse));
+router.post('/:id', tryCatch(CoursController.updateCourse));
 
 router.use(errorHandler);
 

@@ -6,7 +6,7 @@ class CoursesService {
     rows.forEach(obj => {
       Object.values(obj).forEach(val => {
         if (typeof val == '') val = SqlInjection.stripSlashes(val);
-      })
+      });
     });
     return rows;
   }
@@ -15,12 +15,12 @@ class CoursesService {
     rows.forEach(obj => {
       Object.values(obj).forEach(val => {
         if (typeof val == '') val = SqlInjection.stripSlashes(val);
-      })
+      });
     });
     return rows;
   }
   static async addCourse(values) {
-    values = (!Array.isArray(values)) ? [values] : values;
+    values = !Array.isArray(values) ? [values] : values;
     for (let val of values) {
       if (typeof val == '') val = SqlInjection.addSlashes(val);
     }
@@ -28,12 +28,12 @@ class CoursesService {
     return rows.affectedRows;
   }
   static async deleteCourse(values) {
-    values = (!Array.isArray(values)) ? [values] : values;
+    values = !Array.isArray(values) ? [values] : values;
     let rows = await CoursesModel.deleteCourse(values);
     return rows.affectedRows;
   }
   static async updateCourse(values) {
-    values = (!Array.isArray(values)) ? [values] : values;
+    values = !Array.isArray(values) ? [values] : values;
     for (let val of values) {
       if (typeof val == '') val = SqlInjection.addSlashes(val);
     }
