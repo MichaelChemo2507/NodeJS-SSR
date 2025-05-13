@@ -16,7 +16,8 @@ class Users {
   }
   static async addUser(values) {
     values = !Array.isArray(values) ? [values] : values;
-    const sql = 'INSERT INTO `users`(`name`,`user_level`,`user_name`,`password`,`email`) VALUES (?,?,?,?,?)';
+    const sql =
+      'INSERT INTO `users`(`name`,`user_level`,`user_name`,`password`,`email`) VALUES (?,?,?,?,?)';
     const [rows, fields] = await connection.pool.execute(sql, values);
     return rows;
   }
@@ -29,7 +30,8 @@ class Users {
   }
   static async updateUser(values) {
     values = !Array.isArray(values) ? [values] : values;
-    const sql = 'UPDATE `users` SET `name` = ?,`user_level` = ?,`user_name` = ?,`password` = ?,`email` = ?, WHERE `id` = ?';
+    const sql =
+      'UPDATE `users` SET `name` = ?,`user_level` = ?,`user_name` = ?,`password` = ?,`email` = ? WHERE `ID` = ?';
     const [rows, fields] = await connection.pool.execute(sql, values);
     return rows;
   }

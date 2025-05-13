@@ -1,4 +1,4 @@
-const UsersModel = require('../models/users.model')
+const UsersModel = require('../models/users.model');
 const SqlInjection = require('../utils/security.utile');
 class UsersService {
   static async getAll() {

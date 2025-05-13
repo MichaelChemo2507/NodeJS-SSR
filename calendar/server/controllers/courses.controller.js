@@ -40,7 +40,7 @@ class CoursesController {
   }
   static async findCourseById(req, res) {
     let id = parseInt(req.params.id);
-    if ((!id) || (id <= 0) || (id === NaN))
+    if (!id || id <= 0 || id === NaN)
       throw new DetailedError('Invalid values were sent.', BED_REQUEST);
     const cours = await CoursesService.findCourseById(id);
     console.log(cours);
@@ -51,7 +51,7 @@ class CoursesController {
   }
   static async addCourse(req, res) {
     let { name } = req.body;
-    if ((!name) || (name !== '') || (name === NaN))
+    if (!name || name !== '' || name === NaN)
       throw new DetailedError('Invalid values were sent.', BED_REQUEST);
     const insertId = await CoursesService.addCourse([String(name)]);
     if (insertId === 0)
@@ -60,7 +60,7 @@ class CoursesController {
   }
   static async deleteCourse(req, res) {
     let id = parseInt(req.params.id);
-    if ((!id) || (id <= 0) || (id === NaN))
+    if (!id || id <= 0 || id === NaN)
       throw new DetailedError('Invalid values were sent.', BED_REQUEST);
     const affectedRows = await CoursesService.deleteCourse(id);
     if (affectedRows === 0)
@@ -73,7 +73,7 @@ class CoursesController {
     let id = parseInt(req.params.id);
     let { name } = req.body;
     console.log(name);
-    if ((!name) || (name !== '') || (!id) || (id <= 0) || (id === NaN))
+    if (!name || name !== '' || !id || id <= 0 || id === NaN)
       throw new DetailedError('Invalid values were sent.', BED_REQUEST);
     const affectedRows = await CoursesService.updateCourse([String(name), id]);
     if (affectedRows === 0)
