@@ -2,9 +2,9 @@ const CoursesService = require('../services/courses.service');
 const DetailedError = require('../errors/detailedError.errors');
 const { BED_REQUEST, NOT_FOUND } = require('../errors/errorCodes');
 
-class CoursController {
+class CoursesController {
   static getAddCoursesPage(req, res) {
-    res.status(200).render('add_courses', {
+    res.status(process.env.OK).render('add_courses', {
       data: {
         btnText: 'ADD',
         URL: 'http://localhost:7777/courses/',
@@ -14,7 +14,7 @@ class CoursController {
   }
   static getUpdateCoursesPage(req, res) {
     let id = parseInt(req.params.id);
-    res.status(200).render('add_courses', {
+    res.status(process.env.OK).render('add_courses', {
       data: {
         id: id,
         btnText: 'UPDATE',
@@ -25,7 +25,7 @@ class CoursController {
   }
   static async getCoursesListPage(req, res) {
     let result = await CoursesService.getAll();
-    res.status(200).render('courses_list', {
+    res.status(process.env.OK).render('courses_list', {
       result: result,
       page_title: 'Courses-List',
     });
@@ -36,7 +36,7 @@ class CoursController {
     if (courses.length == 0)
       throw new DetailedError('No result from db', NOT_FOUND);
     if (!courses) throw new RangeError('No resulte from db!');
-    return res.status(200).json({ success: true, rows: courses });
+    return res.status(process.env.OK).json({ success: true, rows: courses });
   }
   static async findCourseById(req, res) {
     let id = parseInt(req.params.id);
@@ -47,11 +47,11 @@ class CoursController {
     if (cours.length == 0)
       throw new DetailedError('No result from db.', NOT_FOUND);
     if (!cours) throw new RangeError('No resulte from db!');
-    return res.status(200).json({ success: true, rows: cours });
+    return res.status(process.env.OK).json({ success: true, rows: cours });
   }
   static async addCourse(req, res) {
     let { name } = req.body;
-    if ((!name) || (name === '') || (name === NaN))
+    if ((!name) || (name !== '') || (name === NaN))
       throw new DetailedError('Invalid values were sent.', BED_REQUEST);
     const insertId = await CoursesService.addCourse([String(name)]);
     if (insertId === 0)
@@ -73,7 +73,7 @@ class CoursController {
     let id = parseInt(req.params.id);
     let { name } = req.body;
     console.log(name);
-    if ((!name) || (name === '') || (!id) || (id <= 0) || (id === NaN))
+    if ((!name) || (name !== '') || (!id) || (id <= 0) || (id === NaN))
       throw new DetailedError('Invalid values were sent.', BED_REQUEST);
     const affectedRows = await CoursesService.updateCourse([String(name), id]);
     if (affectedRows === 0)
@@ -81,4 +81,4 @@ class CoursController {
     res.status(process.env.CREATED).redirect('listPage');
   }
 }
-module.exports = CoursController;
+module.exports = CoursesController;
