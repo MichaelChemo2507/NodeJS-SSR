@@ -15,6 +15,8 @@ app.set('views', path.join(__dirname, './views'));
 
 const coursesRouts = require('./routs/courses.rout');
 app.use('/courses', coursesRouts);
+const usersRouts = require('./routs/users.rout');
+app.use('/users', usersRouts);
 
 app.get('/', (req, res) => {
   res.render('index', {});
