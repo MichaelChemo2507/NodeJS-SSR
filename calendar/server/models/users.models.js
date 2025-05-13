@@ -1,6 +1,6 @@
 const connection = require('../configuration/db');
 
-class Courses {
+class Users {
   static async getAll() {
     const sql = 'SELECT * FROM `users`';
     const [rows, fields] = await connection.pool.query({
@@ -21,17 +21,17 @@ class Courses {
     return rows;
   }
   static async addMultipleUsers(values) {}
-  static async deleteCourse(values) {
+  static async deleteUser(values) {
     values = !Array.isArray(values) ? [values] : values;
-    const sql = 'DELETE FROM `courses` WHERE `id` = ?';
+    const sql = 'DELETE FROM `users` WHERE `id` = ?';
     const [rows, fields] = await connection.pool.execute(sql, values);
     return rows;
   }
-  static async updateCourse(values) {
+  static async updateUser(values) {
     values = !Array.isArray(values) ? [values] : values;
-    const sql = 'UPDATE `courses` SET `name` = ? WHERE `id` = ?';
+    const sql = 'UPDATE `courses` SET `name` = ?,`user_level` = ?,`user_name` = ?,`password` = ?,`email` = ?, WHERE `id` = ?';
     const [rows, fields] = await connection.pool.execute(sql, values);
     return rows;
   }
 }
-module.exports = Courses;
+module.exports = Users;
