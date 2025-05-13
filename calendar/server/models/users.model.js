@@ -29,7 +29,7 @@ class Users {
   }
   static async updateUser(values) {
     values = !Array.isArray(values) ? [values] : values;
-    const sql = 'UPDATE `courses` SET `name` = ?,`user_level` = ?,`user_name` = ?,`password` = ?,`email` = ?, WHERE `id` = ?';
+    const sql = 'UPDATE `users` SET `name` = ?,`user_level` = ?,`user_name` = ?,`password` = ?,`email` = ?, WHERE `id` = ?';
     const [rows, fields] = await connection.pool.execute(sql, values);
     return rows;
   }
