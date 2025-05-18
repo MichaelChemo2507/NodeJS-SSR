@@ -17,6 +17,8 @@ const coursesRouts = require('./routs/courses.rout');
 app.use('/courses', coursesRouts);
 const usersRouts = require('./routs/users.rout');
 app.use('/users', usersRouts);
+const loginRouts = require('./routs/login.rout');
+app.use('/login', loginRouts);
 
 app.get('/', (req, res) => {
   res.render('index', {});
