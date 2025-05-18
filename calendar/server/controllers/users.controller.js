@@ -1,5 +1,6 @@
 const UsersService = require('../services/users.service');
 const DetailedError = require('../errors/detailedError.errors');
+const md5 = require('md5');
 const { BED_REQUEST, NOT_FOUND } = require('../errors/errorCodes');
 
 class UsersController {
@@ -26,7 +27,7 @@ class UsersController {
       String(name),
       user_level,
       String(user_name),
-      String(password),
+      md5(String(password)),
       String(email),
     ]);
     if (insertId === 0)
@@ -51,7 +52,7 @@ class UsersController {
       String(name),
       user_level,
       String(user_name),
-      String(password),
+      md5(String(password)),
       String(email),
       id,
     ]);

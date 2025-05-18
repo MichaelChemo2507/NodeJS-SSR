@@ -1,5 +1,6 @@
 const CoursesService = require('../services/courses.service');
 const DetailedError = require('../errors/detailedError.errors');
+
 const { BED_REQUEST, NOT_FOUND } = require('../errors/errorCodes');
 
 class CoursesController {

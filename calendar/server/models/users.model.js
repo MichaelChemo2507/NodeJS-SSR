@@ -8,6 +8,12 @@ class Users {
     });
     return rows;
   }
+  static async authorisationProcess(values) {
+    values = !Array.isArray(values) ? [values] : values;
+    const sql = 'SELECT * FROM `users` WHERE `password` = ? AND `email` = ?';
+    const [rows, fields] = await connection.pool.execute(sql, values);
+    return rows;
+  }
   static async findUserById(values) {
     values = !Array.isArray(values) ? [values] : values;
     const sql = 'SELECT * FROM `users` WHERE `id` = ?';
@@ -21,7 +27,7 @@ class Users {
     const [rows, fields] = await connection.pool.execute(sql, values);
     return rows;
   }
-  static async addMultipleUsers(values) {}
+  static async addMultipleUsers(values) { }
   static async deleteUser(values) {
     values = !Array.isArray(values) ? [values] : values;
     const sql = 'DELETE FROM `users` WHERE `id` = ?';
