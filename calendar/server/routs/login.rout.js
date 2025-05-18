@@ -5,7 +5,7 @@ const { tryCatch } = require('../utils/tryCatch.utils');
 
 const router = express.Router();
 
-
+router.post('/',tryCatch());
 
 router.use(errorHandler);
 
