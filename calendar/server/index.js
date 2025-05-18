@@ -2,9 +2,13 @@
 const port = 7777;
 const dotenv = require('dotenv');
 const express = require('express');
+var cookieParser = require('cookie-parser');
+
+
 const app = express();
 app.use(express.json());
 
+app.use(cookieParser());
 dotenv.config();
 const bodyParser = require('body-parser');
 const path = require('path');

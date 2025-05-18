@@ -8,8 +8,10 @@ class Users {
     });
     return rows;
   }
-  static async authorisationProcess(values) {
+  static async authorizationProcess(values) {
     values = !Array.isArray(values) ? [values] : values;
+    console.log(values);
+    
     const sql = 'SELECT * FROM `users` WHERE `password` = ? AND `email` = ?';
     const [rows, fields] = await connection.pool.execute(sql, values);
     return rows;

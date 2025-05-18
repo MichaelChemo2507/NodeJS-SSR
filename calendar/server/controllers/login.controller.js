@@ -1,6 +1,9 @@
 
-const { BED_REQUEST, NOT_FOUND } = require('../errors/errorCodes');
+const DetailedError = require('../errors/detailedError.errors');
+const LoginService = require('../services/login.service')
+const { BED_REQUEST, NOT_FOUND, UNAUTHORIZED } = require('../errors/errorCodes');
 const md5 = require('md5');
+
 class LoginController {
     static getLoginPage(req, res) {
         res.status(process.env.OK).render('login_page', {
@@ -11,12 +14,14 @@ class LoginController {
             },
         });
     }
-    static async authorisationProcess(req, res) {
+    static async authorizationProcess(req, res) {
         let { email, password } = req.body;
-        if(!email || !password)
-            throw new DetailedError('Invalid values were sent.', BED_REQUEST);
-        const affectedRows = await LoginController.authorisationProcess([md5(String(password)),String(email)]);
-        return res.status(process.env.CREATED).redirect('listPage');
+        if (!email || !password) {
+            throw new Error('Invalid values were sent.', BED_REQUEST);
+        } const accessToken = await LoginService.authorizationProcess([md5(String(password)), String(email)]);
+        if (!accessToken)
+            throw new DetailedError('No Access Token provided.', UNAUTHORIZED);
+        return res.status(process.env.OK).send(accessToken);
     }
 }
 module.exports = LoginController;
