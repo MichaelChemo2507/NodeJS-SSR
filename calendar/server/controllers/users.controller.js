@@ -27,7 +27,7 @@ class UsersController {
       String(name),
       user_level,
       String(user_name),
-      md5(String(password)),
+      md5(String(password) + process.env.MD5_SECRET_KEY),
       String(email),
     ]);
     if (insertId === 0)
@@ -52,7 +52,7 @@ class UsersController {
       String(name),
       user_level,
       String(user_name),
-      md5(String(password)),
+      md5(String(password) + process.env.MD5_SECRET_KEY),
       String(email),
       id,
     ]);
