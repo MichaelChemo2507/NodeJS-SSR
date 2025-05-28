@@ -16,6 +16,7 @@ class LoginController {
     }
     static async authorizationProcess(req, res) {
         let { email, password } = req.body;
+        const oneDay = 24 * 60 * 60 * 1000
         if (!email || !password) {
             throw new Error('Invalid values were sent.', BED_REQUEST);
         } const accessToken = await LoginService.authorizationProcess([md5(String(password) + process.env.MD5_SECRET_KEY), String(email)]);
@@ -23,6 +24,7 @@ class LoginController {
             throw new DetailedError('No Access Token provided.', UNAUTHORIZED);
         res.cookie('token', accessToken, {
             httpOnly: true,
+            maxAge: oneDay,
         });
         return res.status(process.env.OK).json({ saccess: true });
     }

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 02, 2025 at 04:33 PM
+-- Generation Time: May 28, 2025 at 06:09 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -30,6 +30,32 @@ SET time_zone = "+00:00";
 CREATE TABLE `courses` (
   `ID` int(11) NOT NULL,
   `name` varchar(254) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `courses`
+--
+
+INSERT INTO `courses` (`ID`, `name`) VALUES
+(8, 'das'),
+(9, 'java#'),
+(10, 'js'),
+(11, 'sa'),
+(12, 'ads'),
+(13, 'ads'),
+(14, 'ads'),
+(15, 'ads');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `courses_to_teathers`
+--
+
+CREATE TABLE `courses_to_teathers` (
+  `ID` int(250) NOT NULL,
+  `user_id` int(250) NOT NULL,
+  `course_id` int(250) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -72,9 +98,22 @@ CREATE TABLE `users` (
   `name` varchar(254) NOT NULL,
   `user_level` int(11) NOT NULL,
   `user_name` varchar(254) NOT NULL,
-  `password` varchar(11) NOT NULL,
+  `password` varchar(250) NOT NULL,
   `email` varchar(254) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`ID`, `name`, `user_level`, `user_name`, `password`, `email`) VALUES
+(3, 'Michael', 1, 'Mihcael_No_Logic', '12345678', 'mnh8551@gmail.com'),
+(5, 'Maor', 1, 'Maor_No_Brain', '12345678', 'meor8551@gmail.com'),
+(6, 'Maor', 2, 'Maor_No_Brain', '12345678', 'meor8551@gmail.com'),
+(7, 'Micah', 1, 'micha', '25d55ad283a', 'mnh8551@gmail.com'),
+(8, 'MMMM', 1, 'dsf', '839787a428a', 'mnh8551@gmail.com'),
+(9, 'MMMM', 1, 'dsf', '839787a428a626a79586f23b998d7434', 'mnh8551@gmail.com'),
+(10, 'MMMM', 1, 'dsf', '786453f40669aedae796369d4c2a8b9a', 'mnh8551@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -88,6 +127,14 @@ CREATE TABLE `user_lavel` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
+-- Dumping data for table `user_lavel`
+--
+
+INSERT INTO `user_lavel` (`ID`, `name`) VALUES
+(1, 'Teacher'),
+(2, 'Student');
+
+--
 -- Indexes for dumped tables
 --
 
@@ -97,6 +144,14 @@ CREATE TABLE `user_lavel` (
 ALTER TABLE `courses`
   ADD PRIMARY KEY (`ID`),
   ADD UNIQUE KEY `ID` (`ID`);
+
+--
+-- Indexes for table `courses_to_teathers`
+--
+ALTER TABLE `courses_to_teathers`
+  ADD PRIMARY KEY (`ID`),
+  ADD KEY `user_id` (`user_id`),
+  ADD KEY `course_id` (`course_id`);
 
 --
 -- Indexes for table `lerning_track`
@@ -139,7 +194,13 @@ ALTER TABLE `user_lavel`
 -- AUTO_INCREMENT for table `courses`
 --
 ALTER TABLE `courses`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+
+--
+-- AUTO_INCREMENT for table `courses_to_teathers`
+--
+ALTER TABLE `courses_to_teathers`
+  MODIFY `ID` int(250) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `lerning_track`
@@ -157,17 +218,24 @@ ALTER TABLE `students_to_teathers`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `user_lavel`
 --
 ALTER TABLE `user_lavel`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `courses_to_teathers`
+--
+ALTER TABLE `courses_to_teathers`
+  ADD CONSTRAINT `courses_to_teathers_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`ID`),
+  ADD CONSTRAINT `courses_to_teathers_ibfk_2` FOREIGN KEY (`course_id`) REFERENCES `courses` (`ID`);
 
 --
 -- Constraints for table `lerning_track`
