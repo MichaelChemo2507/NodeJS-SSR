@@ -1,5 +1,5 @@
 const DetailedError = require('../errors/detailedError.errors');
-const { BED_REQUEST } = require('../errors/errorCodes');
+const { BED_REQUEST,FORBIDDEN } = require('../errors/errorCodes');
 
 const errorHandler = (error, req, res, next) => {
   console.log(error);
@@ -26,6 +26,9 @@ const errorHandler = (error, req, res, next) => {
       .status(500)
       .json({ success: false, type: 'RangeError', message: error.message });
   if (error instanceof DetailedError)
+    if (error.statusCode == FORBIDDEN) {
+      return res.status(error.statusCode).redirect("http://localhost:7777/login/");
+    }
     return res
       .status(error.statusCode)
       .json({ success: false, type: 'DetailedError', message: error.message });

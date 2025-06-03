@@ -26,7 +26,7 @@ class LoginController {
             httpOnly: true,
             maxAge: oneDay,
         });
-        return res.status(process.env.OK).json({ saccess: true });
+        return res.status(process.env.OK).redirect("http://localhost:7777/courses/listPage");
     }
 }
 module.exports = LoginController;
