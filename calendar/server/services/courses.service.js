@@ -1,7 +1,8 @@
+
 const CoursesModel = require('../models/courses.model');
 class CoursesService {
-  static async getAll() {
-    let rows = await CoursesModel.getAll();
+  static async getAll(reqProps) {
+    let rows = await CoursesModel.getAll(reqProps);
     return rows;
   }
   static async findCourseById(values) {

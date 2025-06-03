@@ -29,5 +29,5 @@ app.get('/', (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log(`Now listening on http://localhost:${port}`);
+  console.log(`Now listening on http://localhost:${port}/courses/listPage`);
 });

@@ -25,15 +25,14 @@ class CoursesController {
     });
   }
   static async getCoursesListPage(req, res) {
-    let result = await CoursesService.getAll();
+    let result = await CoursesService.getAll({ user_id: req.user_id, body: req.body });
     res.status(process.env.OK).render('courses_list', {
       result: result,
       page_title: 'Courses-List',
     });
   }
   static async getAll(req, res) {
-    const courses = await CoursesService.getAll();
-    console.log(courses);
+    const courses = await CoursesService.getAll({ user_id: req.user_id, body: req.body });
     if (courses.length == 0)
       throw new DetailedError('No result from db', NOT_FOUND);
     if (!courses) throw new RangeError('No resulte from db!');

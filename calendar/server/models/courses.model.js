@@ -1,11 +1,15 @@
 const connection = require('../configuration/db');
 
 class Courses {
-  static async getAll() {
-    const sql = 'SELECT * FROM `courses`';
-    const [rows, fields] = await connection.pool.query({
-      sql,
-    });
+  static async getAll(reqProps) {
+    let values = [reqProps.user_id];
+    let sql = 'SELECT * FROM `courses` WHERE `ID` IN (SELECT `course_id` FROM `courses_to_teathers` WHERE `user_id` = ?)';
+    if (reqProps.body.name) {
+      sql += ' AND `name` = ?';
+      values.push(reqProps.body.name);
+    } 
+    console.log(values);
+    const [rows, fields] = await connection.pool.execute(sql,values);
     return rows;
   }
   static async findCourseById(values) {
