@@ -1,0 +1,43 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%=page_title%></title>
+    <style>
+        table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+    </style>
+</head>
+<body>
+    <h1><%=page_title%></h1>
+    <table style="border: 1px solid black;">
+        <tr>
+            <%for( let i = 0;i < Object.keys(result[0]).length; i++){%>
+                <th><%= Object.keys(result[0])[i] %></th>
+            <%}%>
+        </tr>
+        <% for(let i = 0; i < result.length; i++){%>
+            <tr>
+                <%for(let k = 0; k < Object.values(result[i]).length; k++){%>
+                    <td><%=Object.values(result[i])[k]%></td>
+                <%}%>
+            </tr>
+        <%}%>
+    </table>
+</body>
+</html>
