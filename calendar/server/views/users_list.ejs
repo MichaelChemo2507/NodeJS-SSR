@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -36,6 +35,10 @@ tr:nth-child(even) {
                 <%for(let k = 0; k < Object.values(result[i]).length; k++){%>
                     <td><%=Object.values(result[i])[k]%></td>
                 <%}%>
+                <form action="<%= data.method %>">
+                    <input type="hidden" name="id" value="<%= result[i][0] %>"/>
+                    <button id="">DELETE</button>
+                </form>
             </tr>
         <%}%>
     </table>
