@@ -2,7 +2,7 @@ const connection = require('../configuration/db');
 
 class Users {
   static async getAll() {
-    const sql = 'SELECT * FROM `users`';
+    const sql = 'SELECT `ID`, `name`, `user_level`, `user_name`, `email` FROM `users` ';
     const [rows, fields] = await connection.pool.query({
       sql,
     });

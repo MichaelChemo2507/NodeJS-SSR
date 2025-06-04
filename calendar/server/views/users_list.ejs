@@ -29,16 +29,19 @@ tr:nth-child(even) {
             <%for( let i = 0;i < Object.keys(result[0]).length; i++){%>
                 <th><%= Object.keys(result[0])[i] %></th>
             <%}%>
+            <th></th>
         </tr>
         <% for(let i = 0; i < result.length; i++){%>
             <tr>
                 <%for(let k = 0; k < Object.values(result[i]).length; k++){%>
                     <td><%=Object.values(result[i])[k]%></td>
                 <%}%>
-                <form action="<%= data.method %>">
-                    <input type="hidden" name="id" value="<%= result[i][0] %>"/>
-                    <button id="">DELETE</button>
+                <td>
+                <form action="/users/" >
+                    <input type="hidden" name="id" value="<%= Object.values(result[i])[0] %>"/>
+                    <button>DELETE</button>
                 </form>
+                </td>
             </tr>
         <%}%>
     </table>
