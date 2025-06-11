@@ -14,6 +14,5 @@ router.get('/', tryCatch(UsersController.deleteUser));
 router.post('/', tryCatch(UsersController.addUser));
 router.post('/:id', tryCatch(UsersController.updateUser));
 
-router.use(errorHandler);
 
 module.exports = router;

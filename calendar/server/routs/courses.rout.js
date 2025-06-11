@@ -16,6 +16,5 @@ router.post('/',tryCatch(CoursesController.addCourse));
 router.delete('/:id',tryCatch(CoursesController.deleteCourse));
 router.post('/:id',tryCatch(CoursesController.updateCourse));
 
-router.use(errorHandler);
 
 module.exports = router;

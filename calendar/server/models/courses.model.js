@@ -2,8 +2,13 @@ const connection = require('../configuration/db');
 
 class Courses {
   static async getAll(reqProps, pageProps) {
-    let values = [reqProps.user_id, (pageProps.page * pageProps.rowPerPage), pageProps.rowPerPage];
-    let sql = 'SELECT * FROM `courses` WHERE `ID` IN (SELECT `course_id` FROM `courses_to_teathers` WHERE `user_id` = ?) LIMIT ?, ?';
+    let values;
+    values = [reqProps.user_id];
+    let sql = 'SELECT * FROM `courses` WHERE `ID` IN (SELECT `course_id` FROM `courses_to_teathers` WHERE `user_id` = ?)';
+    if (pageProps) {
+      values = [reqProps.user_id, (pageProps.page * pageProps.rowPerPage), pageProps.rowPerPage];
+      sql += ' LIMIT ?, ?';
+    }
     if (reqProps.body.name) {
       sql += ' AND `name` = ?';
       values.push(reqProps.body.name);

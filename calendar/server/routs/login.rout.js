@@ -9,6 +9,5 @@ const router = express.Router();
 router.get('/', tryCatch(LoginController.getLoginPage));
 router.post('/', tryCatch(LoginController.authorizationProcess));
 
-router.use(errorHandler);
 
 module.exports = router;

@@ -1,8 +1,10 @@
 
 const CoursesModel = require('../models/courses.model');
 class CoursesService {
-  static async getAll(reqProps,pageProps) {
-    let rows = await CoursesModel.getAll(reqProps,pageProps);
+  static async getAll(reqProps, pageProps) {
+    let rows;
+    if (pageProps) rows = await CoursesModel.getAll(reqProps, pageProps);
+    else rows = await CoursesModel.getAll(reqProps);
     return rows;
   }
   static async getTotalPages() {
