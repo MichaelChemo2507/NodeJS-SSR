@@ -38,6 +38,19 @@ tr:nth-child(even) {
                 <%}%>
             </tr>
         <%}%>
+        <tr>
+            <td>
+                <form action="">
+                    <% if(page > 0) { %>
+                        <button name="p" value="<%= page-1 %>">BACK</button>
+                    <% } %>
+                        PAGE <%= page+1 %> IN <%= total_pages+1 %>
+                    <% if(page < total_pages) { %>
+                        <button name="p" value="<%= page+1 %>">NEXT</button>
+                    <% } %>
+                </form>
+            </td>
+        </tr>
     </table>
 </body>
 </html>

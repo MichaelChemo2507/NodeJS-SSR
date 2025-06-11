@@ -1,9 +1,13 @@
 
 const CoursesModel = require('../models/courses.model');
 class CoursesService {
-  static async getAll(reqProps) {
-    let rows = await CoursesModel.getAll(reqProps);
+  static async getAll(reqProps,pageProps) {
+    let rows = await CoursesModel.getAll(reqProps,pageProps);
     return rows;
+  }
+  static async getTotalPages() {
+    let res = await CoursesModel.getTotalPages();
+    return res;
   }
   static async findCourseById(values) {
     let rows = await CoursesModel.findCourseById(values);
