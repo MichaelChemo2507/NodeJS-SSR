@@ -32,9 +32,6 @@ const errorHandler = (error, req, res, next) => {
     return res
       .status(error.statusCode)
       .json({ success: false, type: 'DetailedError', message: error.message });
-  return res
-    .status(500)
-    .json({ success: false, message: 'Something whent wrong!' });
 };
 
 module.exports = errorHandler;
