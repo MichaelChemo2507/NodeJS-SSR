@@ -18,7 +18,7 @@ class Users {
   }
   static async findUserById(values) {
     values = !Array.isArray(values) ? [values] : values;
-    const sql = 'SELECT * FROM `users` WHERE `id` = ?';
+    const sql = 'SELECT 1 FROM `users` WHERE `id` = ?';
     const [rows, fields] = await connection.pool.execute(sql, values);
     return rows;
   }

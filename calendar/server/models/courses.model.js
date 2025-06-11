@@ -21,7 +21,7 @@ class Courses {
   }
   static async findCourseById(values) {
     values = !Array.isArray(values) ? [values] : values;
-    const sql = 'SELECT * FROM `courses` WHERE `id` = ?';
+    const sql = 'SELECT 1 FROM `courses` WHERE `id` = ?';
     const [rows, fields] = await connection.pool.execute(sql, values);
     return rows;
   }
