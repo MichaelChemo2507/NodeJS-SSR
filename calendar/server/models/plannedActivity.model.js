@@ -1,14 +1,14 @@
+//ID	description	user_ID	coursID	start_time	end_time	date	is_plan   ---lerning_track
 const connection = require('../configuration/db');
 
-class Courses {
+class plannedActivity {
   static async getAll(reqProps, pageProps) {
-    let values = [reqProps.user_id, (pageProps.page * pageProps.rowPerPage), pageProps.rowPerPage];
-    let sql = 'SELECT * FROM `courses` WHERE `ID` IN (SELECT `course_id` FROM `courses_to_teathers` WHERE `user_id` = ?) LIMIT ?, ?';
+    let values = [reqProps.user_id];
+    let sql = 'SELECT * FROM `lerning_track` WHERE `user_ID`= ?';
     if (reqProps.body.name) {
       sql += ' AND `name` = ?';
       values.push(reqProps.body.name);
     }
-    console.log(values);
     const [rows, fields] = await connection.pool.execute(sql, values);
     return rows;
   }

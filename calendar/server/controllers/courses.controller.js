@@ -27,13 +27,13 @@ class CoursesController {
   static async getCoursesListPage(req, res) {
     let rowPerPage = 4;
     let page = (req.query.page !== undefined) ? req.query.page : 0;
-    let result = await CoursesService.getAll({ user_id: req.user_id, body: req.body },{page,rowPerPage});
+    let result = await CoursesService.getAll({ user_id: req.user_id, body: req.body }, { page, rowPerPage });
     let total_pages = await CoursesService.getTotalPages();
     res.status(process.env.OK).render('courses_list', {
       result: result,
       page_title: 'Courses-List',
       page: page,
-      total_page: total_pages,
+      total_pages: total_pages,
     });
   }
   static async getAll(req, res) {
