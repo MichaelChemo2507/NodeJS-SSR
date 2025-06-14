@@ -1,5 +1,4 @@
 const express = require('express');
-const errorHandler = require('../middleware/errorsHandler.middleware');
 const UsersController = require('../controllers/users.controller');
 const authinticationProcess = require('../middleware/authintication.middleqare');
 const { tryCatch } = require('../utils/tryCatch.utils');

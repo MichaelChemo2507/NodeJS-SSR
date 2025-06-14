@@ -25,10 +25,10 @@ class ActivitiesController {
     }
     static async addActivity(req, res) {
         let { description, user_ID, cours_ID, start_time, end_time, date, is_plan } = req.body;
-        const insertId = await ActivitiesService.addActivity([String(description),parseInt(user_ID),parseInt(cours_ID),String(start_time),String(end_time),String(date),parseInt(is_plan)]);
+        const insertId = await ActivitiesService.addActivity([String(description), parseInt(user_ID), parseInt(cours_ID), String(start_time), String(end_time), String(date), parseInt(is_plan)]);
         if (insertId === 0)
             throw new DetailedError('No row was created.', NOT_FOUND);
-        return res.status(process.env.CREATED);
+        return res.status(process.env.CREATED).send({seccess:true});
     }
     static async deleteActivity(req, res) {
         let id = parseInt(req.params.id);
@@ -44,10 +44,10 @@ class ActivitiesController {
     static async updateActivty(req, res) {
         let id = parseInt(req.params.id);
         let { description, user_ID, cours_ID, start_time, end_time, date, is_plan } = req.body;
-        const affectedRows = await ActivitiesService.updateActivty([String(description),parseInt(user_ID),parseInt(cours_ID),String(start_time),String(end_time),String(date),parseInt(is_plan)]);
+        const affectedRows = await ActivitiesService.updateActivty([String(description), parseInt(user_ID), parseInt(cours_ID), String(start_time), String(end_time), String(date), parseInt(is_plan), id]);
         if (affectedRows === 0)
             throw new DetailedError('No rows updated.', NOT_FOUND);
-        res.status(process.env.CREATED);
+        res.status(process.env.CREATED).send({ success: true, message: `rows by id ${id} are updated` });
     }
 }
 module.exports = ActivitiesController;
