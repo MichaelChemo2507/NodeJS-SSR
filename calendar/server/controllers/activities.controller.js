@@ -18,10 +18,12 @@ class ActivitiesController {
         });
     }
     static async getActivitiesListPage(req, res) {
-        let rowPerPage = 4;
+        let rowPerPage = 2;
         let page = (req.query.page !== undefined) ? req.query.page : 0;
         let result = await ActivitiesService.getAll({ user_id: req.user_id, body: req.body }, { page, rowPerPage });
         let total_pages = await ActivitiesService.getTotalPages({ user_id: req.user_id });
+        total_pages = Math.ceil(Object.values(total_pages[0])[0] / rowPerPage);
+        
         res.status(process.env.OK).render('activities_list', {
             result: result,
             page_title: 'Activities-List',
@@ -56,7 +58,7 @@ class ActivitiesController {
     }
     static async updateActivty(req, res) {
         let id = parseInt(req.params.id);
-        let { description, user_ID, cours_ID, start_time, end_time, date, is_plan } = req.body;
+        let { description, course, start_time, end_time, date, is_plan } = req.body;
         const affectedRows = await ActivitiesService.updateActivty([String(description), parseInt(user_ID), parseInt(cours_ID), String(start_time), String(end_time), String(date), parseInt(is_plan), id]);
         if (affectedRows === 0)
             throw new DetailedError('No rows updated.', NOT_FOUND);

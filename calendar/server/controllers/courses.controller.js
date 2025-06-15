@@ -29,6 +29,7 @@ class CoursesController {
     let page = (req.query.page !== undefined) ? req.query.page : 0;
     let result = await CoursesService.getAll({ user_id: req.user_id, body: req.body }, { page, rowPerPage });
     let total_pages = await CoursesService.getTotalPages();
+    total_pages = Math.ceil(Object.values(total_pages[0])[0] / rowPerPage);
     res.status(process.env.OK).render('courses_list', {
       result: result,
       page_title: 'Courses-List',
