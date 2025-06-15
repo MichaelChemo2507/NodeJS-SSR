@@ -5,7 +5,8 @@ const { tryCatch } = require('../utils/tryCatch.utils');
 
 const router = express.Router();
 
-router.get('/addPage',authinticationProcess, tryCatch(ActivitiesController.getAddActivityPage));
+router.get('/addPage', authinticationProcess, tryCatch(ActivitiesController.getAddActivityPage));
+router.get('/listPage',authinticationProcess, tryCatch(ActivitiesController.getActivitiesListPage));
 
 router.get('/',tryCatch(ActivitiesController.getAll));
 router.post('/',authinticationProcess,tryCatch(ActivitiesController.addActivity));

@@ -9,12 +9,24 @@ class ActivitiesController {
         let courses = await CoursesService.getAll({ user_id: req.user_id });
         res.status(process.env.OK).render('add_activity', {
             data: {
-                method:"post",
-                URL:"http://localhost:7777/activities/",
+                method: "post",
+                URL: "http://localhost:7777/activities/",
                 page_title: "add Activity",
                 courses: courses,
                 btnText: 'ADD',
             },
+        });
+    }
+    static async getActivitiesListPage(req, res) {
+        let rowPerPage = 4;
+        let page = (req.query.page !== undefined) ? req.query.page : 0;
+        let result = await ActivitiesService.getAll({ user_id: req.user_id, body: req.body }, { page, rowPerPage });
+        let total_pages = await ActivitiesService.getTotalPages({ user_id: req.user_id });
+        res.status(process.env.OK).render('activities_list', {
+            result: result,
+            page_title: 'Activities-List',
+            page: page,
+            total_pages: total_pages,
         });
     }
     static async getAll(req, res) {
@@ -25,15 +37,11 @@ class ActivitiesController {
         return res.status(process.env.OK).json({ success: true, rows: rows });
     }
     static async addActivity(req, res) {
-        console.log(req.body);
-        console.log(req.user_id);
-        
-        
         let { description, course, start_time, end_time, date, is_plan } = req.body;
         const insertId = await ActivitiesService.addActivity([String(description), parseInt(req.user_id), parseInt(course), String(start_time), String(end_time), String(date), parseInt(is_plan)]);
         if (insertId === 0)
             throw new DetailedError('No row was created.', NOT_FOUND);
-        return res.status(process.env.CREATED).send({seccess:true});
+        return res.status(process.env.CREATED).redirect('listPage');
     }
     static async deleteActivity(req, res) {
         let id = parseInt(req.params.id);

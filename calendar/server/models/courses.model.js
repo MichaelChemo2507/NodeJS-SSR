@@ -1,7 +1,7 @@
 const connection = require('../configuration/db');
 
 class Courses {
-  static async getAll(reqProps, pageProps) {
+  static async getAll(reqProps, pageProps = undefined) {
     let values;
     values = [reqProps.user_id];
     let sql = 'SELECT * FROM `courses` WHERE `ID` IN (SELECT `course_id` FROM `courses_to_teathers` WHERE `user_id` = ?)';
