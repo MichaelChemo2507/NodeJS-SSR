@@ -15,6 +15,9 @@ class ActivitiesService {
   }
   static async addActivity(values) {
     values = !Array.isArray(values) ? [values] : values;
+    console.log(values[1]);
+    console.log(values[2]);
+    
     let users = await UsersModel.findUserById([values[1]]);
     if (users.length <= 0)
       throw new DetailedError('No User exist', errorCodes.BED_REQUEST);

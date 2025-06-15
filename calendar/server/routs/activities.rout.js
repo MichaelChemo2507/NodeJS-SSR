@@ -8,7 +8,7 @@ const router = express.Router();
 router.get('/addPage',authinticationProcess, tryCatch(ActivitiesController.getAddActivityPage));
 
 router.get('/',tryCatch(ActivitiesController.getAll));
-router.post('/',tryCatch(ActivitiesController.addActivity));
+router.post('/',authinticationProcess,tryCatch(ActivitiesController.addActivity));
 router.delete('/:id',tryCatch(ActivitiesController.deleteActivity));
 router.post('/:id',tryCatch(ActivitiesController.updateActivty));
 

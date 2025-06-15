@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%=data.page_title%></title>
+</head>
+<body>
+    <form method="<%= data.method %>" action="<%= data.URL %>">
+        <select name="course">
+            <%for( let i = 0; i < data.courses.length; i++){%>
+                <option value="<%= data.courses[i].ID %>"><%= data.courses[i].name %></option>
+            <%}%>
+        </select>
+        <input type="text" name="description" placeholder="description...">
+        <input type="time" name="start_time" placeholder="start time...">
+        <input type="time" name="end_time" placeholder="end time...">
+        <input type="date" name="date" placeholder="date...">
+        <input type="hidden" name="is_plan" value="0">
+        <input type="submit" value="<%= data.btnText %>">
+    </form>
+</body>
+</html>

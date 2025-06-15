@@ -9,11 +9,10 @@ class Courses {
       values = [reqProps.user_id, (pageProps.page * pageProps.rowPerPage), pageProps.rowPerPage];
       sql += ' LIMIT ?, ?';
     }
-    if (reqProps.body.name) {
+    if (reqProps.name) {
       sql += ' AND `name` = ?';
-      values.push(reqProps.body.name);
+      values.push(reqProps.name);
     }
-    console.log(values);
     const [rows, fields] = await connection.pool.execute(sql, values);
     return rows;
   }
