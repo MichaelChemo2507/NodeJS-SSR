@@ -1,12 +1,12 @@
 const express = require('express');
-const LoginController = require('../controllers/login.controller')
+const RagistrationController = require('../controllers/ragistration.controller')
 
 const { tryCatch } = require('../utils/tryCatch.utils');
 
 const router = express.Router();
 
-router.get('/', tryCatch(LoginController.getLoginPage));
-router.post('/', tryCatch(LoginController.authorizationProcess));
+router.get('/', tryCatch(RagistrationController.getRagistrationPage));
+router.post('/', tryCatch(RagistrationController.ragistrationProcess));
 
 
 module.exports = router;

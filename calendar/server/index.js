@@ -17,7 +17,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, './views'));
 
-app.use('/', require('./routs/router.routs'));
+app.use('/', require('./routs/router.rout'));
 
 app.get('/', (req, res) => {
   res.render('index', {});

@@ -5,7 +5,7 @@ const UsersService = require('../services/users.service')
 const { BED_REQUEST, NOT_FOUND, UNAUTHORIZED } = require('../errors/errorCodes');
 const md5 = require('md5');
 
-class UserLevelController {
+class RagistrationController {
     static async getRagistrationPage(req, res) {
         const userLevel = await UserLevelService.getAll();
         if (!userLevel || userLevel === null || userLevel.length <= 0)
@@ -33,4 +33,4 @@ class UserLevelController {
         return res.status(process.env.OK).redirect("http://localhost:7777/login/");
     }
 }
-module.exports = UserLevelController;
+module.exports = RagistrationController;
