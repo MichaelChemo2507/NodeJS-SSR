@@ -1,15 +1,16 @@
 
 const DetailedError = require('../errors/detailedError.errors');
-const UserLevelService = require('../services/userLevel.service')
+const UserLevelService = require('../services/userLevel.service');
+const UsersService = require('../services/users.service')
 const { BED_REQUEST, NOT_FOUND, UNAUTHORIZED } = require('../errors/errorCodes');
 const md5 = require('md5');
 
-class LoginController {
-    static async getLoginPage(req, res) {
+class UserLevelController {
+    static async getRagistrationPage(req, res) {
         const userLevel = await UserLevelService.getAll();
         if (!userLevel || userLevel === null || userLevel.length <= 0)
             throw new DetailedError('NO RESULT FROM DB.', NOT_FOUND);
-        res.status(process.env.OK).render('login_page', {
+        res.status(process.env.OK).render('ragistration_page', {
             data: {
                 userLevel: userLevel,
                 btnText: 'SUBMIT',
@@ -18,19 +19,18 @@ class LoginController {
             },
         });
     }
-    static async authorizationProcess(req, res) {
-        let { email, password } = req.body;
-        const oneDay = 24 * 60 * 60 * 1000
-        if (!email || !password) {
-            throw new Error('Invalid values were sent.', BED_REQUEST);
-        } const accessToken = await LoginService.authorizationProcess([md5(String(password) + process.env.MD5_SECRET_KEY), String(email)]);
-        if (!accessToken)
-            throw new DetailedError('No Access Token provided.', UNAUTHORIZED);
-        res.cookie('token', accessToken, {
-            httpOnly: true,
-            maxAge: oneDay,
-        });
-        return res.status(process.env.OK).redirect("http://localhost:7777/courses/listPage");
+    static async ragistrationProcess(req, res) {
+        let { name, userLevel, userName, email, password } = req.body;
+        const insertId = await UsersService.addUser([
+            String(name),
+            parseInt(userLevel),
+            String(userName),
+            md5(String(password) + process.env.MD5_SECRET_KEY),
+            String(email),
+        ]);
+        if (insertId === 0)
+            throw new DetailedError('NO USER JOINED.', NOT_FOUND);
+        return res.status(process.env.OK).redirect("http://localhost:7777/login/");
     }
 }
-module.exports = LoginController;
+module.exports = UserLevelController;
