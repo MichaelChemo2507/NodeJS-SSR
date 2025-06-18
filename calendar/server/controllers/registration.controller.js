@@ -30,7 +30,16 @@ class RegistrationController {
         ]);
         if (insertId === 0)
             throw new DetailedError('NO USER JOINED.', NOT_FOUND);
-        return res.status(process.env.OK).redirect("http://localhost:7777/login/");
+        return res.status(process.env.OK).render('message_page', {
+            data: {
+                message:"Your Registration Was Successfully Completed!"
+            },
+            variables: {
+                page_title: "resistration",
+                linkText: "Go To Sign In  Page.",
+                URL:"http://localhost:7777/login/"
+            }
+        });
     }
 }
 module.exports = RegistrationController;
