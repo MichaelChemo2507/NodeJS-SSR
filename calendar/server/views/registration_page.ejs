@@ -41,10 +41,17 @@
         h2{
             margin-bottom: 10px;
         }
+        
+        a{
+            padding-left: 40px;
+        }
+        a:link {color:#ff0000;text-decoration:none;}
+        a:visited {color:cornflowerblue;text-decoration:none;}
+        a:hover {text-decoration:underline;}
     </style>
 </head>
 <body>
-<h2>SIGN IN</h2>
+<h2>SIGN UP</h2>
 <form method="<%= data.method %>" action="<%= data.URL %>">
     <select class="inputs" name="userLevel">
             <%for( let i = 0; i < data.userLevel.length; i++){%>
@@ -56,6 +63,7 @@
     <input class="inputs" type="email" name="email" id="email" placeholder="email...">
     <input class="inputs" type="password" name="password" id="password" placeholder="password...">
     <input class="inputs" id="btn" type="submit" value="<%= data.btnText %>">
+    <a href="http://localhost:7777/login/">Back To Sign In</a>
 </form>
 </form>
 </body>
