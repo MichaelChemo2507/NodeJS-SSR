@@ -5,21 +5,21 @@ const UsersService = require('../services/users.service')
 const { BED_REQUEST, NOT_FOUND, UNAUTHORIZED } = require('../errors/errorCodes');
 const md5 = require('md5');
 
-class RagistrationController {
-    static async getRagistrationPage(req, res) {
+class RegistrationController {
+    static async getRegistrationPage(req, res) {
         const userLevel = await UserLevelService.getAll();
         if (!userLevel || userLevel === null || userLevel.length <= 0)
             throw new DetailedError('NO RESULT FROM DB.', NOT_FOUND);
-        res.status(process.env.OK).render('ragistration_page', {
+        res.status(process.env.OK).render('registration_page', {
             data: {
                 userLevel: userLevel,
                 btnText: 'SUBMIT',
-                URL: 'http://localhost:7777/login/',
+                URL: 'http://localhost:7777/registration/',
                 method: 'post',
             },
         });
     }
-    static async ragistrationProcess(req, res) {
+    static async registrationProcess(req, res) {
         let { name, userLevel, userName, email, password } = req.body;
         const insertId = await UsersService.addUser([
             String(name),
@@ -33,4 +33,4 @@ class RagistrationController {
         return res.status(process.env.OK).redirect("http://localhost:7777/login/");
     }
 }
-module.exports = RagistrationController;
+module.exports = RegistrationController;

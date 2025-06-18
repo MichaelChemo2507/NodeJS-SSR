@@ -1,3 +1,5 @@
+const DetailedError = require('../errors/detailedError.errors');
+const {BED_REQUEST} =require('../errors/errorCodes')
 const UsersModel = require('../models/users.model');
 class UsersService {
   static async getAll() {
@@ -9,7 +11,13 @@ class UsersService {
     return rows;
   }
   static async addUser(values) {
+    values.map(val => {
+      if (!val)
+        throw new DetailedError("INVALID PARAMETERS", BED_REQUEST);
+    })
     values = !Array.isArray(values) ? [values] : values;
+    console.log(values);
+    
     let rows = await UsersModel.addUser(values);
     return rows.affectedRows;
   }
