@@ -1,12 +1,14 @@
 
 const DetailedError = require('../errors/detailedError.errors');
-const LoginService = require('../services/login.service')
+const UserLevelService = require('../services/userLevel.service')
 const { BED_REQUEST, NOT_FOUND, UNAUTHORIZED } = require('../errors/errorCodes');
 const md5 = require('md5');
 
 class LoginController {
-    static getLoginPage(req, res) {
-        const userLevel = 
+    static async getLoginPage(req, res) {
+        const userLevel = await UserLevelService.getAll();
+        if (!userLevel || userLevel === null || userLevel.length <= 0)
+            throw new DetailedError('NO RESULT FROM DB.', NOT_FOUND);
         res.status(process.env.OK).render('login_page', {
             data: {
                 userLevel: userLevel,
