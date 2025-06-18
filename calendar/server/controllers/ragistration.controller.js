@@ -6,8 +6,10 @@ const md5 = require('md5');
 
 class LoginController {
     static getLoginPage(req, res) {
+        const userLevel = 
         res.status(process.env.OK).render('login_page', {
             data: {
+                userLevel: userLevel,
                 btnText: 'SUBMIT',
                 URL: 'http://localhost:7777/login/',
                 method: 'post',
